@@ -1,220 +1,120 @@
-import 'dart:io';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:students/db/functions/db_functions.dart';
 import 'package:students/model/data_model.dart';
 import 'package:students/screen/list_student.dart';
-import '../db/functions/db_functions.dart';
 
-// ignore: must_be_immutable
-class EditDetails extends StatefulWidget {
-  int index;
-  var name;
-  var age;
-  var phone;
-  var place;
-  dynamic image;
 
-  EditDetails({
-    super.key,
+class Edit extends StatefulWidget {
+  final name;
+  final phone;
+  final place;
+  dynamic index;
+
+  Edit({
     required this.index,
     required this.name,
-    required this.age,
     required this.phone,
-    required this.place,
-    required this.image,
+    required this.place
   });
 
   @override
-  State<EditDetails> createState() => _EditDetailsState();
+  State<Edit> createState() => _editState();
 }
 
-class _EditDetailsState extends State<EditDetails> {
-  File? _file;
+class _editState extends State<Edit> {
+  TextEditingController _nameController = TextEditingController();
 
-  TextEditingController _studentname = TextEditingController();
-  TextEditingController _studentage = TextEditingController();
-  TextEditingController _studentphone = TextEditingController();
-  TextEditingController _studentplace = TextEditingController();
-  String profilephoto = '';
+  TextEditingController _phoneController = TextEditingController();
+
+  TextEditingController _placeController = TextEditingController();
+
 
   @override
   void initState() {
     super.initState();
-    _studentname = TextEditingController(text: widget.name);
-    _studentage = TextEditingController(text: widget.age);
-    _studentphone = TextEditingController(text: widget.phone);
-    _studentplace = TextEditingController(text: widget.place);
-    profilephoto = widget.image;
+    _nameController = TextEditingController(text: widget.name);
+    _phoneController = TextEditingController(text: widget.phone);
+    _placeController = TextEditingController(text: widget.place);
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Update details'),
-          backgroundColor: Colors.teal[800],
-        ),
-        body: ListView(
+        child: Scaffold(
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        color: const Color.fromARGB(255, 255, 255, 255),
+        child: ListView(
           children: [
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.teal[800],
-                  borderRadius: BorderRadius.circular(50)),
-              child: IconButton(
-                  onPressed: () {
-                    getcam();
-                  },
-                  icon: Icon(Icons.camera_alt_outlined)),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-                child: _file != null
-                    ? CircleAvatar(
-                        radius: 80,
-                        child: SizedBox(
-                          width: 150,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(110),
-                            child: Image.file(
-                              _file!,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      )
-                    : CircleAvatar(
-                        backgroundImage: widget.image is File
-                            ? FileImage(widget.image)
-                            : FileImage(File(widget.image)),
-                        radius: 80,
-                      )),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.teal[800],
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: IconButton(
-                  onPressed: () {
-                    getimage();
-                  },
-                  icon: Icon(Icons.photo_sharp)),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            TextFormField(
-                controller: _studentname,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'name',
-                )),
-            SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-                controller: _studentage,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'age',
-                )),
-            SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-                controller: _studentphone,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'phone',
-                )),
-            SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-                controller: _studentplace,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'place',
-                )),
-            SizedBox(
-              height: 10,
-            ),
-            ElevatedButton.icon(
-              onPressed: () => setState(() {
-                updateall(context);
-              }),
-              icon: const Icon(Icons.flag),
-              label: const Text('Update'),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.teal[800],
-              ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const SizedBox(height: 50),
+                Container(
+                  margin: const EdgeInsets.only(left: 30, right: 30),
+                  child: Column(children: [
+                    TextField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Name',
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextField(
+                      controller: _phoneController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'phone',
+                        filled: true,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextField(
+                      controller: _placeController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'place',
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          updateall();
+                        },
+                        child: Text('Update')),
+                  ]),
+                ),
+              ],
             ),
           ],
         ),
       ),
-    );
+    ));
   }
 
-  Future<void> updateall(BuildContext context) async {
-    final st_name = _studentname.text.trim();
-    final st_age = _studentage.text.trim();
-    final st_phone = _studentphone.text.trim();
-    final st_place = _studentplace.text.trim();
+  Future<void> updateall() async {
+    final ih = _nameController.text.trim();
+    final ih1 = _phoneController.text.trim();
+    final ih2 = _placeController.text.trim();
 
-    if (st_name.isEmpty ||
-        st_age.isEmpty ||
-        st_phone.isEmpty ||
-        st_place.isEmpty) {
+    if (ih.isEmpty || ih1.isEmpty || ih2.isEmpty ) {
       return;
     } else {
-      final updation = StudentModel(
-          name: st_name,
-          age: st_age,
-          phone: st_phone,
-          place: st_place,
-          i_mage: "");
+      final updation = StudentModel(name: ih, phone: ih1, place: ih2, );
 
-      editDetails(widget.index, updation);
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => ListStudentWidget()));
-
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.teal,
-        content: Text('Updated'),
-      ));
-    }
-  }
-
-  getimage() async {
-    final XFile? _wantimage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    if (_wantimage != null) {
-      setState(() {
-        _file = File(_wantimage.path);
-        profilephoto = _wantimage.path;
-      });
-    }
-  }
-
-  getcam() async {
-    final XFile? _wantimage =
-        await ImagePicker().pickImage(source: ImageSource.camera);
-
-    if (_wantimage != null) {
-      setState(() {
-        _file = File(_wantimage.path);
-        profilephoto = _wantimage.path;
-      });
-    }
-  }
+      editstudent(widget.index, updation);
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const ListStudentWidget()));
+}
+}
 }

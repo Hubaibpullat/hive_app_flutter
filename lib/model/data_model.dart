@@ -9,23 +9,24 @@ class StudentModel {
   @HiveField(1)
   final String name;
 
-  @HiveField(2)
-  final String age;
+  // @HiveField(2)
+  // final String age;
 
-  @HiveField(3)
+  @HiveField(2)
   final String phone;
 
-  @HiveField(4)
+  @HiveField(3)
   final String place;
 
-  @HiveField(5)
-  final String i_mage;
+  // @HiveField(4)
+  // final String i_mage;
 
-  StudentModel(
+  StudentModel( 
       {required this.name,
-      required this.age,
+      // required this.age,
       required this.phone,
       required this.place,
       this.id,
-      required this.i_mage});
+      // required this.i_mage
+      });
 }

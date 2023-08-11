@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:students/db/functions/db_functions.dart';
-import 'package:students/model/data_model.dart';
 
-import 'package:students/screen/add_student.dart';
-import 'package:students/screen/list_student.dart';
 
 class Screenhome extends StatefulWidget {
   const Screenhome({super.key});

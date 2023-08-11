@@ -42,9 +42,12 @@ class _ListStudentWidgetState extends State<ListStudentWidget> {
                 return ListTile(
                     title: Text(data.name),
                     subtitle: Text(data.place),
-                    leading: CircleAvatar(
-                      backgroundImage: FileImage(File(data.i_mage)),
-                    ),
+                    // leading: CircleAvatar(
+                    //   backgroundImage: 
+                    //   // FileImage(File(
+                    //   //   // data.i_mage
+                    //   //   ),),
+                    // ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -63,13 +66,7 @@ class _ListStudentWidgetState extends State<ListStudentWidget> {
                         IconButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => EditDetails(
-                                    index: index,
-                                    name: data.name,
-                                    age: data.age,
-                                    phone: data.phone,
-                                    place: data.phone,
-                                    image: data.i_mage),
+                                builder: (context) => Edit(name: data.name, index:index, phone: data.phone, place: data.place,),
                               ));
                             },
                             icon: Icon(
@@ -77,16 +74,8 @@ class _ListStudentWidgetState extends State<ListStudentWidget> {
                               color: Colors.green,
                             ))
                       ],
-                    ),
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: ((context) => ViewDetails(
-                              name: data.name,
-                              age: data.age,
-                              phone: data.phone,
-                              place: data.place,
-                              image: data.i_mage))));
-                    });
+                ));
+                   
               },
               separatorBuilder: (ctx, index) {
                 return const Divider();
@@ -94,8 +83,11 @@ class _ListStudentWidgetState extends State<ListStudentWidget> {
               itemCount: studentList.length,
             );
           }),
-          floatingActionButton: Icon(Icons.add,)
-          
+         floatingActionButton:FloatingActionButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddStudentWidget(),));
+         },child: Icon(Icons.add),
+         backgroundColor: Colors.teal[800],
+         ) 
           ,
     );
   }
