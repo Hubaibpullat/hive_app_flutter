@@ -29,12 +29,12 @@ Future<void> deletestudent(index) async{
   getAllStudents();
 }
 
-Future<void> editstudent(int id, StudentModel value) async {
-  final studentDB = await Hive.openBox<StudentModel>('student_db');
-  // studentListNotifier.value.clear();
-  // studentListNotifier.value.addAll(studentDB.values);
-  // studentListNotifier.notifyListeners();
+Future<void> editstudent(index, StudentModel value) async {
+  final studentDB = await Hive.openBox<StudentModel>('data');
+  studentListNotifier.value.clear();
+  studentListNotifier.value.addAll(studentDB.values);
+  studentListNotifier.notifyListeners();
 
-  studentDB.putAt(id, value);
+  studentDB.putAt(index, value);
   getAllStudents();
 }

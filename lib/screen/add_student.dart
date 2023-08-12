@@ -22,7 +22,7 @@ class _AddStudentWidgetState extends State<AddStudentWidget> {
 
   final _placecontroller = TextEditingController();
 
-  File? file;
+  // File? file;
 
   // ImagePicker image = ImagePicker();
 
@@ -41,25 +41,25 @@ class _AddStudentWidgetState extends State<AddStudentWidget> {
           padding: const EdgeInsets.all(40.0),
           child: ListView(
             children: [
-              Container(
-                child: CircleAvatar(
-                    radius: 80,
-                    child: file == null
-                        ? const CircleAvatar(
-                            radius: 90,
-                            backgroundImage: AssetImage('asset/student.png'),
-                          )
-                        : SizedBox(
-                            height: 200,
-                            width: 180,
-                            child: ClipOval(
-                                // BorderRadius: BorderRadius.circular(50),
-                                child: Image.file(
-                              file!,
-                              fit: BoxFit.fill,
-                            )),
-                          )),
-              ),
+              // Container(
+              //   child: CircleAvatar(
+              //       radius: 80,
+              //       child: file == null
+              //           ? const CircleAvatar(
+              //               radius: 90,
+              //               backgroundImage: AssetImage('asset/student.png'),
+              //             )
+              //           : SizedBox(
+              //               height: 200,
+              //               width: 180,
+              //               child: ClipOval(
+              //                   // BorderRadius: BorderRadius.circular(50),
+              //                   child: Image.file(
+              //                 file!,
+              //                 fit: BoxFit.fill,
+              //               )),
+              //             )),
+              // ),
               const SizedBox(
                 height: 50,
               ),
@@ -117,22 +117,6 @@ class _AddStudentWidgetState extends State<AddStudentWidget> {
                 },
               ),
               const SizedBox(height: 10),
-              // TextFormField(
-              //   keyboardType: TextInputType.number,
-              //   controller: _ageController,
-              //   decoration: InputDecoration(
-              //     // border:
-              //     //     OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-              //     hintText: ' enter your Age',
-              //   ),
-              //   validator: (value) {
-              //     if (value == null || value.isEmpty) {
-              //       return 'value is empty';
-              //     } else {
-              //       return null;
-              //     }
-              //   },
-              // ),
               const SizedBox(height: 10),
               TextFormField(
                 keyboardType: TextInputType.phone,

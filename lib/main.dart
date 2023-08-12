@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:students/db/functions/db_functions.dart';
-import 'package:students/screen/add_student.dart';
-import 'package:students/screen/home_screen.dart';
 import 'package:students/screen/list_student.dart';
 import 'model/data_model.dart';
 

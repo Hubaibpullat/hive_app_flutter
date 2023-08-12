@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:students/db/functions/db_functions.dart';
+import 'package:students/screen/list_student.dart';
 
 
 class Screenhome extends StatefulWidget {
@@ -21,7 +22,7 @@ class _ScreenhomeState extends State<Screenhome> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          // ListStudentWidget(),
+          ListStudentWidget(),
         ],
       ),
     );

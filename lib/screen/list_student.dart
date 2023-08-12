@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:students/db/functions/db_functions.dart';
 import 'package:students/model/data_model.dart';
 import 'package:students/screen/add_student.dart';
@@ -32,57 +29,57 @@ class _ListStudentWidgetState extends State<ListStudentWidget> {
             icon: Icon(Icons.arrow_back)),
       ),
       body: ValueListenableBuilder(
-          valueListenable: studentListNotifier,
+                valueListenable: studentListNotifier,
           builder: (BuildContext ctx, List<StudentModel> studentList,
               Widget? child) {
-            return ListView.separated(
-              shrinkWrap: true,
-              itemBuilder: (ctx, index) {
-                final data = studentList[index];
-                return ListTile(
-                    title: Text(data.name),
-                    subtitle: Text(data.place),
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (ctx, index) {
+                      final data = studentList[index];
+                      return ListTile(
+                          title: Text(data.name),
+                          subtitle: Text(data.place),
                     // leading: CircleAvatar(
                     //   backgroundImage: 
                     //   // FileImage(File(
                     //   //   // data.i_mage
                     //   //   ),),
                     // ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            deletestudent(index);
-                          },
-                          icon: const Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                          ),
-                        ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  deletestudent(index);
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                              ),
                         SizedBox(
                           width: 10,
                         ),
-                        IconButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
+                              IconButton(
+                                  onPressed: () {
+                                    Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => Edit(name: data.name, index:index, phone: data.phone, place: data.place,),
                               ));
-                            },
-                            icon: Icon(
-                              Icons.edit,
-                              color: Colors.green,
+                                },
+                                  icon: Icon(
+                                    Icons.edit,
+                                    color: Colors.green,
                             ))
-                      ],
+                            ],
                 ));
-                   
-              },
-              separatorBuilder: (ctx, index) {
-                return const Divider();
-              },
-              itemCount: studentList.length,
-            );
-          }),
+                         
+                    },
+                    separatorBuilder: (ctx, index) {
+                      return const Divider();
+                    },
+                    itemCount: studentList.length,
+                  );
+                }),
          floatingActionButton:FloatingActionButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddStudentWidget(),));
          },child: Icon(Icons.add),

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+
 
 import 'package:flutter/material.dart';
 import 'package:students/db/functions/db_functions.dart';
@@ -89,7 +89,7 @@ class _editState extends State<Edit> {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          updateall();
+                          updateall(context);
                         },
                         child: Text('Update')),
                   ]),
@@ -102,7 +102,7 @@ class _editState extends State<Edit> {
     ));
   }
 
-  Future<void> updateall() async {
+  Future<void> updateall(ctx) async {
     final ih = _nameController.text.trim();
     final ih1 = _phoneController.text.trim();
     final ih2 = _placeController.text.trim();
@@ -114,7 +114,7 @@ class _editState extends State<Edit> {
 
       editstudent(widget.index, updation);
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const ListStudentWidget()));
+          MaterialPageRoute(builder: (context) =>  ListStudentWidget()));
 }
 }
 }
