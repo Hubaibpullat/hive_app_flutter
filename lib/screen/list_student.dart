@@ -3,7 +3,7 @@ import 'package:students/db/functions/db_functions.dart';
 import 'package:students/model/data_model.dart';
 import 'package:students/screen/add_student.dart';
 import 'package:students/screen/edit_student.dart';
-import 'package:students/screen/view_details.dart';
+import 'package:students/screen/search_student.dart';
 
 class ListStudentWidget extends StatefulWidget {
   const ListStudentWidget({super.key});
@@ -13,13 +13,12 @@ class ListStudentWidget extends StatefulWidget {
 }
 
 class _ListStudentWidgetState extends State<ListStudentWidget> {
-  //final Box = Hive.box<StudentModel>('data');
   Widget build(BuildContext context) {
     getAllStudents();
     return Scaffold(
-      
+      backgroundColor: Colors.deepOrange[50],
       appBar: AppBar(
-        backgroundColor: Colors.teal[800],
+        backgroundColor: Colors.brown[600],
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -27,51 +26,56 @@ class _ListStudentWidgetState extends State<ListStudentWidget> {
               ));
             },
             icon: Icon(Icons.arrow_back)),
+            actions: [
+              IconButton(onPressed: (){
+                showSearch(context: context, delegate: search());
+              },
+               icon: const Icon(Icons.search))
+            ],
       ),
       body: ValueListenableBuilder(
                 valueListenable: studentListNotifier,
           builder: (BuildContext ctx, List<StudentModel> studentList,
               Widget? child) {
                   return ListView.separated(
-                    shrinkWrap: true,
+                    // shrinkWrap: true,
                     itemBuilder: (ctx, index) {
                       final data = studentList[index];
-                      return ListTile(
-                          title: Text(data.name),
-                          subtitle: Text(data.place),
-                    // leading: CircleAvatar(
-                    //   backgroundImage: 
-                    //   // FileImage(File(
-                    //   //   // data.i_mage
-                    //   //   ),),
-                    // ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  deletestudent(index);
-                                },
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                ),
-                              ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                              IconButton(
+                       return GestureDetector(
+                        // onTap: () {
+                        //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => ViewDetails(index: index, name: data.name, phone: data.phone, place: data.place),));
+                        // },
+                        child: ListTile(
+                            title: Text(data.name),
+                            subtitle: Text(data.place),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
                                   onPressed: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Edit(name: data.name, index:index, phone: data.phone, place: data.place,),
-                              ));
-                                },
-                                  icon: Icon(
-                                    Icons.edit,
-                                    color: Colors.green,
-                            ))
-                            ],
-                ));
+                                    deletestudent(index);
+                                  },
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    
+                                  ),
+                                ), 
+                          SizedBox(
+                            width: 10,
+                          ),
+                                IconButton(
+                                    onPressed: () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Edit(name: data.name, index:index, phone: data.phone, place: data.place,),
+                                ));
+                                  },
+                                    icon: Icon(
+                                      Icons.edit,
+                                      color: Colors.brown[200],
+                              ))
+                              ],
+                                      )),
+                      );
                          
                     },
                     separatorBuilder: (ctx, index) {
@@ -83,9 +87,10 @@ class _ListStudentWidgetState extends State<ListStudentWidget> {
          floatingActionButton:FloatingActionButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddStudentWidget(),));
          },child: Icon(Icons.add),
-         backgroundColor: Colors.teal[800],
+         backgroundColor: Colors.brown[600],
          ) 
           ,
     );
+  
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:students/db/functions/db_functions.dart';
 import 'package:students/model/data_model.dart';
@@ -22,9 +21,7 @@ class _AddStudentWidgetState extends State<AddStudentWidget> {
 
   final _placecontroller = TextEditingController();
 
-  // File? file;
-
-  // ImagePicker image = ImagePicker();
+  
 
     final _formkey = GlobalKey<FormState>();
 
@@ -32,8 +29,10 @@ class _AddStudentWidgetState extends State<AddStudentWidget> {
   Widget build(BuildContext context) {
     getAllStudents();
     return Scaffold(
+      backgroundColor: Colors.deepOrange[50],
       appBar: AppBar(
-        backgroundColor: Colors.teal[800],
+        title: Text('Enter details'),
+        backgroundColor: Colors.brown[600],
       ),
       body: Form(
         key: _formkey,
@@ -41,72 +40,10 @@ class _AddStudentWidgetState extends State<AddStudentWidget> {
           padding: const EdgeInsets.all(40.0),
           child: ListView(
             children: [
-              // Container(
-              //   child: CircleAvatar(
-              //       radius: 80,
-              //       child: file == null
-              //           ? const CircleAvatar(
-              //               radius: 90,
-              //               backgroundImage: AssetImage('asset/student.png'),
-              //             )
-              //           : SizedBox(
-              //               height: 200,
-              //               width: 180,
-              //               child: ClipOval(
-              //                   // BorderRadius: BorderRadius.circular(50),
-              //                   child: Image.file(
-              //                 file!,
-              //                 fit: BoxFit.fill,
-              //               )),
-              //             )),
-              // ),
-              const SizedBox(
-                height: 50,
-              ),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 150,
-                      height: 30,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.teal[800]),
-                        onPressed: () {
-                          // getpicture();
-                        },
-                        child: Text(
-                          'Take picture',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                      width: 150,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.teal[800]),
-                        onPressed: () {
-                          // getphotos();
-                        },
-                        child: Text(
-                          'From gallery',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
               TextFormField(
                 controller: _nameController,
                 decoration: InputDecoration(
-                  hintText: 'Enter your Name',
+                  hintText: 'Enter Name',
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -124,7 +61,7 @@ class _AddStudentWidgetState extends State<AddStudentWidget> {
                 decoration: InputDecoration(
                   // border:
                   //     OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                  hintText: 'Enter your Number',
+                  hintText: 'Enter Number',
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -141,7 +78,7 @@ class _AddStudentWidgetState extends State<AddStudentWidget> {
                 decoration: InputDecoration(
                   // border:
                   //     OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                  hintText: 'Enter your Place',
+                  hintText: 'Enter Place',
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty ) {
@@ -151,11 +88,14 @@ class _AddStudentWidgetState extends State<AddStudentWidget> {
                   }
                 },
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 10
+              ),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.teal[800]),
+                style: ElevatedButton.styleFrom
+                (backgroundColor: Colors.brown[600],
+                shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(20))
+                ),
                 onPressed: (){
-                  
                   if(_formkey.currentState!.validate()){
                     onAddStudentButtonClicked(context);
 
@@ -168,25 +108,8 @@ class _AddStudentWidgetState extends State<AddStudentWidget> {
 
                 }, 
                 child: Text('Add student',
-                style: TextStyle(color: Colors.white),)),
-              // ElevatedButton(
-              //   style:
-              //       ElevatedButton.styleFrom(backgroundColor: Colors.teal[800]),
-                    
-              //   onPressed: () { {
-                           
-              //           }
-      
-              //     onAddStudentButtonClicked(context);
-              //     Navigator.of(context).push(MaterialPageRoute(
-              //       builder: (context) => ListStudentWidget(),
-              //     ));
-              //   },
-              //   child: Text(
-              //     'Add student',
-              //     style: TextStyle(color: Colors.white),
-              //   ),
-              // ),
+                style: TextStyle(color: Colors.white)
+                ,)),
             ],
           ),
         ),
@@ -196,7 +119,6 @@ class _AddStudentWidgetState extends State<AddStudentWidget> {
 
   Future<void> onAddStudentButtonClicked(BuildContext context) async {
     final _name = _nameController.text.trim();
-    // final _age = _ageController.text.trim();
     final _phone = _phonecontrolller.text.trim();
     final _place = _placecontroller.text.trim();
     
@@ -206,27 +128,11 @@ class _AddStudentWidgetState extends State<AddStudentWidget> {
 
     final _student = StudentModel(
         name: _name,
-        // age: _age,
         phone: _phone,
         place: _place,
-      
-        // i_mage: file!.path);
     );
+
     addStudent(_student);
     print("$_ageController,$_name");
    }
-
-  // Future getpicture() async {
-  //   var img = await image.pickImage(source: ImageSource.camera);
-  //   setState(() {
-  //     file = File(img!.path);
-  //   });
-  // }
-
-  // Future getphotos() async {
-  //   var img = await image.pickImage(source: ImageSource.gallery);
-  //   setState(() {
-  //     file = File(img!.path);
-  //   });
-  // }
 }
